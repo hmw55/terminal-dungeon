@@ -54,17 +54,29 @@ public class Room {
         Render the room to the console, marking the player's position.
     */
 
-    public void printRoom(int playerX, int playerY) {
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
+    public void printRoom(int playerX, int playerY, boolean highlight) {
+        char[][] tiles = this.tiles;
+        for (int y = 0; y < tiles.length; y++) {
+            for (int x = 0; x < tiles[y].length; x++) {
+                char tile = tiles[y][x];
+
+                // Highlight the player and walls with different colors
                 if (x == playerX && y == playerY) {
-                    System.out.print('P');
+                    // Print the player in green
+                    System.out.print("\033[32mP\033[0m");  // Green for the player
+                } else if (tile == '#') {
+                    // Normal wall
+                    System.out.print("\033[37m#\033[0m");  // Default color for the wall
+                } else if (highlight && tile == 'R') {
+                    // Highlighted wall (red when bumped)
+                    System.out.print("\033[31m#\033[0m");  // Red for the wall on bump
                 } else {
-                    System.out.print(tiles[y][x]);
+                    // Default floor or other tiles
+                    System.out.print("\033[0m" + tile);
                 }
             }
             System.out.println();
         }
-    } 
+    }
     
 }
