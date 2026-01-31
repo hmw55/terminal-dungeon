@@ -20,21 +20,22 @@ public class Room {
 
     /*
         Fill the room with walls on edges and floor inside
+        NOT NEEDED WITH RoomGenerator.java
     */
 
-    private void generateEmptyRoom() {
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                if (y == 0 || y == height - 1 || x == 0 || x == width - 1) {
-                    tiles[y][x] = '#'; // Wall
-                } else {
-                    tiles[y][x] = '.'; // Floor
-                }
-            }
-        }
-        // Place a door for testing
-        tiles[height/2][width-1] = 'D';
-    }
+    // private void generateEmptyRoom() {
+    //     for (int y = 0; y < height; y++) {
+    //         for (int x = 0; x < width; x++) {
+    //             if (y == 0 || y == height - 1 || x == 0 || x == width - 1) {
+    //                 tiles[y][x] = '#'; // Wall
+    //             } else {
+    //                 tiles[y][x] = '.'; // Floor
+    //             }
+    //         }
+    //     }
+    //     // Place a door for testing
+    //     tiles[height/2][width-1] = 'D';
+    // }
 
     public char[][] getTiles() {
         return tiles;
