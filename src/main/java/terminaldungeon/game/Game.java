@@ -3,6 +3,8 @@ package terminaldungeon.game;
 import java.util.Scanner;
 
 import terminaldungeon.map.Room;
+import terminaldungeon.entity.Player;
+import terminaldungeon.item.Item;
 
 /*
     Central coordinator of the game.
@@ -14,6 +16,7 @@ public class Game {
     private GameState state;
     private boolean running;
     private Scanner scanner;
+    private Player player;
     private Room currentRoom;
     private int playerX, playerY;
 
@@ -48,7 +51,28 @@ public class Game {
 
     private void handleStart() {
         System.out.println("Welcome to Terminal Dungeuon.");
-        System.out.println("Press ENTER to start exploring...");
+
+        // Ask player for name
+        System.out.print("Enter your character name: ");
+        String name = scanner.nextLine().trim();
+
+        // Chose class
+        String characterClass = "";
+        while (!characterClass.equals("warrior") && !characterClass.equals("mage") && !characterClass.equals("rogue")){
+            System.out.print("Choose your class (Warrior / Mage / Rogue): ");
+            characterClass = scanner.nextLine().trim().toLowerCase();
+        }
+
+        // Create player object
+        player = new Player(name, characterClass);
+
+        System.out.println("Welcome " + player.getName() + " the " + player.getCharacterClass() + "!");
+        System.out.println("Starting items:");
+        for (Item i : player.getInventory()) {
+            System.out.println( "- " + i);
+        }
+
+        System.out.println("Press ENTER to start exploring... ");
         scanner.nextLine();
         state = GameState.EXPLORING;
     }
