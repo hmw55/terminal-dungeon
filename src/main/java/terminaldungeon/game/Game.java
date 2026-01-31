@@ -2,6 +2,8 @@ package terminaldungeon.game;
 
 import java.util.Scanner;
 
+import terminaldungeon.map.Room;
+
 /*
     Central coordinator of the game.
     Controls the main loop and game state transitions.
@@ -12,11 +14,16 @@ public class Game {
     private GameState state;
     private boolean running;
     private Scanner scanner;
+    private Room currentRoom;
+    private int playerX, playerY;
 
     public Game () {
         this.state = GameState.START;
         this.running = true;
         this.scanner = new Scanner(System.in);
+        currentRoom = new Room (10, 6); // width=10, height=6
+        playerX = 1; // starting X position
+        playerY = 1; // starying Y position
     }
 
     /*
@@ -52,15 +59,36 @@ public class Game {
     */
 
     private void handleExploration() {
-        System.out.println("You are in a dark room. Type 'exit' to quit or 'look' to look around:");
+        
+        currentRoom.printRoom(playerX, playerY);
+        System.out.println("Move with W/A/S/D, type 'exit' to quit:");
+
         String input = scanner.nextLine().trim().toLowerCase();
 
         switch (input) {
+            case "w" -> tryMove(0, -1); // up
+            case "s" -> tryMove(0, 1); // down
+            case "a" -> tryMove(-1, 0); // left
+            case "d" -> tryMove(1, 0); // right
             case "exit" -> state = GameState.EXIT;
-            case "look" -> System.out.println("It's very dark. You see nothing.");
             default -> System.out.println("Unknown command: " + input);
         }
-
     }
+
+    /*
+        Move the player if the target tile is not a wall
+    */
+   private void tryMove(int dx, int dy) {
+    int newX = playerX + dx;
+    int newY = playerY + dy;
+    char [][] tiles = currentRoom.getTiles();
+
+    if (tiles[newY][newX] != '#') {
+        playerX = newX;
+        playerY = newY;
+    } else {
+        System.out.println("You bumb into a wall.");
+    }
+   }
 
 }
