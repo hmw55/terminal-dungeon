@@ -85,17 +85,25 @@ public class Game {
     private void handleExploration() {
         
         currentRoom.printRoom(playerX, playerY);
-        System.out.println("Move with W/A/S/D, type 'exit' to quit:");
+        System.out.println("Move with W/A/S/D, (you can type multiple letters), or type 'exit' to quit:");
 
         String input = scanner.nextLine().trim().toLowerCase();
 
-        switch (input) {
-            case "w" -> tryMove(0, -1); // up
-            case "s" -> tryMove(0, 1); // down
-            case "a" -> tryMove(-1, 0); // left
-            case "d" -> tryMove(1, 0); // right
-            case "exit" -> state = GameState.EXIT;
-            default -> System.out.println("Unknown command: " + input);
+        if (input.equals("exit")) {
+            state = GameState.EXIT;
+            return;
+        }
+
+        // Process each character in the input string
+
+        for (char c : input.toCharArray()) {
+            switch (c) {
+            case 'w' -> tryMove(0, -1); // up
+            case 's' -> tryMove(0, 1); // down
+            case 'a' -> tryMove(-1, 0); // left
+            case 'd' -> tryMove(1, 0); // right
+            default -> System.out.println("Unknown command: " + c);
+            }
         }
     }
 
