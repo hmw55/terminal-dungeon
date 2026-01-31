@@ -1,0 +1,9 @@
+# Compiled Java files
+*.class
+
+# Build directories
+out/
+target/
+
+# OS junk
+.DS_Store
