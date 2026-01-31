@@ -3,6 +3,7 @@ package terminaldungeon.game;
 import java.util.Scanner;
 
 import terminaldungeon.map.Room;
+import terminaldungeon.map.RoomGenerator;
 import terminaldungeon.entity.Player;
 import terminaldungeon.item.Item;
 
@@ -24,7 +25,7 @@ public class Game {
         this.state = GameState.START;
         this.running = true;
         this.scanner = new Scanner(System.in);
-        currentRoom = new Room (10, 6); // width=10, height=6
+        currentRoom = RoomGenerator.generateRoom(15, 10); // randomly generate room
         playerX = 1; // starting X position
         playerY = 1; // starying Y position
     }

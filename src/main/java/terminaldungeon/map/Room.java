@@ -15,7 +15,7 @@ public class Room {
         this.width = width;
         this.height = height;
         tiles = new char[height][width];
-        generateEmptyRoom();
+        // generateEmptyRoom(); // not needed with RoomGenerator.java
     }
 
     /*
